@@ -5,16 +5,28 @@
     </Header>
     <div class="container" ref="wrapper">
       <div class="wrapper">
+      <mt-navbar class="page-part" v-model="selected">
+        <mt-tab-item @click.native="getData('api/block/get_self_buy')" id="1">消费订单</mt-tab-item>
+        <mt-tab-item @click.native="getData('api/block/get_eth_buy')" id="2">ETH订单</mt-tab-item>
+      </mt-navbar>
         <div class="items">
           <div class="item" v-for="(item, index) in data" :key="index">
             <div class="title">
               <p class="name">商品名：{{item.title}}</p>
-              <p class="price">￥{{item.price}}</p>
+              <p v-show="item.order_type === 0" class="price">￥{{item.price}}</p>
+              <p v-show="item.order_type === 1" class="price">总价：￥{{item.price * item.amount}}</p>
             </div>
-            <p class="detail">支付方式：{{item.detail}}</p>
-            <p class="address">收货地址：{{item.address}}</p>
             <div class="footer">
-              <p class="tel">联系方式：{{item.phone}}</p>
+              <p v-show="item.order_type === 0" class="detail">支付方式：{{item.detail}}</p>
+              <p v-show="item.order_type === 1" class="detail">支付方式：ETH积分支付</p>
+              <p style="color: #00a8ff;" v-show="item.is_fa === '0'">未发货</p>
+              <p style="color: #00a8ff;" v-show="item.is_fa === '1'">已发货</p>
+              <p v-show="item.order_type === 1">数量: {{item.amount}}</p>
+            </div>
+            <p v-show="item.order_type === 0" class="address">收货地址：{{item.address}}</p>
+            <p v-show="item.order_type === 1" class="address">以太坊地址：{{item.address}}</p>
+            <div class="footer">
+              <p v-show="item.order_type === 0" class="tel">联系方式：{{item.phone}}</p>
               <p class="date">日期：{{item.create_time}}</p>
             </div>
           </div>
@@ -31,14 +43,16 @@ export default {
   data () {
     return {
       showLeft: true,
+      selected: '1',
       data: []
     }
   },
   methods: {
-    getData () {
+    getData (url) {
+      this.data = []
       var params = new FormData()
       params.append('sid', localStorage.getItem('sid'))
-      this.axios.post(process.env.API_ROOT + '/api/block/get_self_buy', params).then((res) => {
+      this.axios.post(process.env.API_ROOT + url, params).then((res) => {
         this.data = res.data.data
       })
     },
@@ -60,7 +74,7 @@ export default {
     Header
   },
   mounted () {
-    this.getData()
+    this.getData('api/block/get_self_buy')
     this._initScroll()
   }
 }

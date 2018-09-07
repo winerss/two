@@ -87,11 +87,11 @@ export default {
         }
       ],
       options: [{
-        label: '20%注册积分+80%现金积分',
+        label: '20%注册积分+80%复消积分',
         value: '5'
       },
       {
-        label: '40消费积分+60现金积分',
+        label: '40消费积分+60复消积分',
         value: '6'
       }],
       form: {

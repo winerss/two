@@ -39,7 +39,12 @@ import nickname from '@/views/About/nickname'
 import avatar from '@/views/About/avatar'
 import convert from '@/views/About/convert'
 import hfcc from '@/views/About/hfcc'
+import eth from '@/views/About/eth'
+
 import pickUp from '@/views/About/pickUp'
+import redpacket from '@/views/About/redpacket'
+import packetrecord from '@/views/About/packetrecord'
+
 // 设置
 import setting from '@/views/Setting'
 // 登陆注册
@@ -241,6 +246,16 @@ export default new Router({
       component: myorder
     },
     {
+      path: '/redpacket',
+      name: 'redpacket',
+      component: redpacket
+    },
+    {
+      path: '/packetrecord',
+      name: 'packetrecord',
+      component: packetrecord
+    },
+    {
       path: '/reward',
       name: 'reward',
       component: reward
@@ -259,6 +274,11 @@ export default new Router({
       path: '/hfcc/:id',
       name: 'hfcc',
       component: hfcc
+    },
+    {
+      path: '/eth/:id',
+      name: 'eth',
+      component: eth
     },
     {
       path: '/user',

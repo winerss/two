@@ -10,7 +10,7 @@
           <div class="information">
             <div class="header" @click="goPage('/user')">
               <div class="nickName">{{data.nickname}}</div>
-              <div class="avatar"><img src="../../assets/img/logo.png" alt=""></div>
+              <div class="avatar"></div>
             </div>
             <p class="copyContent">{{address}}</p>
             <p  v-clipboard:copy="address"
@@ -28,6 +28,12 @@
               <p class="title">{{lang.label4}}</p>
               <p class="money">{{data.all_point}}</p>
             </div>
+          </div>
+          <div class="packet" style="margin-top: 1rem;">
+            <div class="cash" @click="goPages('/eth/', data.eth_point)">
+              <p class="title">ETH</p>
+              <p class="money">{{data.eth_point}}</p>
+            </div>
             <div class="line"></div>
             <div class="cash" @click="goPages('/hfcc/', data.hfcc_point)">
               <p class="title">HFCC</p>
@@ -43,6 +49,9 @@
             <mt-cell :title="lang.label6" is-link to="/myorder">
               <img slot="icon" src="../../assets/img/order.png" width="24" height="24">
             </mt-cell>
+            <!-- <mt-cell :title="lang.label66" is-link to="/redpacket">
+              <img slot="icon" src="../../assets/img/red-packet.png" width="24" height="24">
+            </mt-cell> -->
             <mt-cell :title="lang.label7" is-link to="/orderRecord">
               <img slot="icon" src="../../assets/img/record.png" width="24" height="24">
             </mt-cell>
@@ -140,6 +149,7 @@ export default {
         label4: 'Release the wallet',
         label5: 'Sharing dividends',
         label6: 'My Order',
+        label66: 'My red packet',
         label7: 'Biling record',
         label8: 'QR code',
         label9: 'Product center'
@@ -151,6 +161,7 @@ export default {
         label3: '冻结钱包',
         label4: '释放钱包',
         label5: '分享奖励',
+        label66: '我的红包',
         label6: '我的订单',
         label7: '账单记录',
         label8: '我的二维码',
@@ -196,6 +207,9 @@ export default {
       background #fff
       border-radius .4rem
       box-shadow 0px 0px 10px 1px #ccc
+      background url('../../assets/img/banner.gif')
+      background-size 100% 102%
+      background-repeat no-repeat
       .header
         display flex
         justify-content space-between
@@ -205,22 +219,25 @@ export default {
           text-overflow ellipsis
           white-space nowrap
           font-size 1.4rem
+          color #ccc
         .avatar
           flex-shrink 0
           width 4rem
           height 4rem
           overflow hidden
-          img
-            height 3rem
-            border-radius 100%
-            margin .5rem
+          background url('../../assets/img/logo.png')
+          background-size cover
+          background-repeat no-repeat
+          background-position center
+          border-radius 100%
       .copyContent
         line-height 1.6rem
         overflow hidden
         text-overflow ellipsis
         white-space nowrap
+        color #ccc
       .copy
-        color #00a8ff
+        color #ccc
     .packet
       display flex
       height 2.4rem

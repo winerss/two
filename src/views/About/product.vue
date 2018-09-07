@@ -41,8 +41,8 @@
           </mt-radio>
         </div>
         <div v-show="value === '1'">
-          <mt-field label="注册积分" type="number" placeholder="至少需要40%的注册积分" v-on:blur.native.capture="changeCount()" v-model='enroll_point'></mt-field>
-          <mt-field label="消费积分" type="number" placeholder="最多需要60%的消费积分" v-model="products[type - 1].point - enroll_point"></mt-field>
+          <mt-field label="注册积分" type="number" placeholder="请输入注册积分" v-on:blur.native.capture="changeCount()" v-model='enroll_point'></mt-field>
+          <mt-field label="消费积分" type="number" placeholder="请输入消费积分" v-model="products[type - 1].point - enroll_point"></mt-field>
         </div>
         <mt-field label="支付密码" type="password" placeholder="请输入≥6的字母+数字的密码" v-model='form.password'></mt-field>
         <mt-button size="small" @click.native="confirm" :class="{ active: isActive }" class="confirm">购买</mt-button>
@@ -71,13 +71,14 @@ export default {
         addressDetail: ''
       },
       value: '1',
-      options: [{
-        label: '注册积分≥40%', value: '1'
-      }, {
-        label: '20%注册积分+80%现金积分', value: '2'
-      }, {
-        label: '40%消费积分+60%现金积分', value: '3'
-      }],
+      // options: [{
+      //   label: '注册积分≥40%', value: '1'
+      // }, {
+      //   label: '20%注册积分+80%复消积分', value: '2'
+      // }, {
+      //   label: '40%消费积分+60%复消积分', value: '3'
+      // }],
+      options: [],
       isActive: false,
       showAddressAreaPicker: false,
       data: {},
@@ -109,7 +110,8 @@ export default {
         }
       ],
       products: [],
-      len: []
+      len: [],
+      enroll: Number
     }
   },
   created () {
@@ -128,12 +130,25 @@ export default {
     }
   },
   methods: {
+    mix_enroll () {
+      var params = new FormData()
+      params.append('sid', localStorage.getItem('sid'))
+      this.axios.post(process.env.API_ROOT + '/api/block/mix_enroll', params).then((res) => {
+        this.enroll = res.data.data * 100
+        this.options = [{
+          label: `注册积分≥${this.enroll}%`, value: '1'
+        }, {
+          label: '20%注册积分+80%复消积分', value: '2'
+        }, {
+          label: '100%消费积分', value: '3'
+        }]
+      })
+    },
     changeCount () {
-      let price = this.products[this.type - 1].point * 0.4
-      console.log(price)
+      let price = this.products[this.type - 1].point * (this.enroll / 100)
       if (price > this.enroll_point) {
         this.$toast({
-          message: '至少需要40%的注册积分',
+          message: `至少需要${this.enroll}%的注册积分`,
           position: 'bottom',
           duration: 1000
         })
@@ -198,7 +213,7 @@ export default {
       var params = new FormData()
       params.append('sid', localStorage.getItem('sid'))
       this.axios.post(process.env.API_ROOT + '/api/block/get_product', params).then((res) => {
-         res.data.data.forEach((element, index) => {
+        res.data.data.forEach((element, index) => {
           this.products.push({
             id: element.id,
             point: element.point,
@@ -208,7 +223,6 @@ export default {
             key: (index + 1).toString()
           })
         })
-        console.log(this.products)
       })
     },
     confirm () {
@@ -219,7 +233,7 @@ export default {
         params.append('zhu_point', this.products[this.type - 1].point - this.enroll_point)
       }
       params.append('sid', localStorage.getItem('sid'))
-      params.append('type', this.products[this.type-1].id)
+      params.append('type', this.products[this.type - 1].id)
       params.append('sign', this.value)
       params.append('receive_name', this.form.name)
       params.append('receive_address', this.form.address + this.form.addressDetail)
@@ -240,6 +254,7 @@ export default {
   mounted () {
     this.type = this.$route.params.id
     this.getProduct()
+    this.mix_enroll()
     this.getArea()
   },
   components: {

@@ -18,7 +18,7 @@
                 <p>{{item.username}}</p>
                 <p>{{item.create_time}}</p>
                 <p class="item-sign" v-if="item.sign === '1'">挂释放钱包</p>
-                <p class="item-sign" v-if="item.sign === '2'">挂现注册积分</p>
+                <p class="item-sign" v-if="item.sign === '2'">注册积分</p>
               </div>
               <div class="item-body">
                 <div class="left">

@@ -53,6 +53,9 @@ export default {
           position: 'bottom',
           duration: 1000
         })
+        if (data.code === 1) {
+          this.$router.push('/about')
+        }
       })
     }
   },

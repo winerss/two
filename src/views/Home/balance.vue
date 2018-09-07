@@ -62,7 +62,7 @@ export default {
         if (localStorage.getItem('language') === 'en') {
           this.title = 'Cashintegral'
         } else {
-          this.title = '现金积分'
+          this.title = '复消积分'
         }
       } else if (type === 'enroll_point') {
         this.type = 9

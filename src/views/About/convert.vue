@@ -5,8 +5,9 @@
       <p v-show="type === 'hfcc'" slot="title">兑换HFCC</p>
     </Header>
     <div class="container">
-      <mt-field label="转入数量" placeholder="数量不能低于10，并小于20%" v-model='form.amount'></mt-field>
+      <mt-field label="转入数量" placeholder="数量不能低于10" v-model='form.amount'></mt-field>
       <mt-field label="支付密码" type="password" placeholder="请输入≥6的字母+数字的密码" v-model='form.password'></mt-field>
+      <p v-show="type === 'hfcc'">20%进入ETH积分</p>
       <mt-button size="small" :class="{ active: isActive }" v-show="type === 'consum'" @click="confirm('consum')" class="confirm">兑换消费积分</mt-button>
       <mt-button size="small" :class="{ active: isActive }" v-show="type === 'hfcc'" @click="confirm('hfcc')" class="confirm">兑换HFCC</mt-button>
     </div>

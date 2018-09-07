@@ -111,7 +111,6 @@ export default {
           background #00a8ff
       .items
         color #666
-        margin-bottom 2.5rem
         .item
           margin-top 8px;
           padding 0 .8rem

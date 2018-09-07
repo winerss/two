@@ -17,11 +17,18 @@
         </div>
         <h4>商品详情</h4>
         <p class="text">{{data.content}}</p>
+        <div v-show="data.type === '2'">
+          <mt-field label="以太坊钱包地址" placeholder="请输入以太坊钱包地址" v-model="address"></mt-field>
+          <mt-field label="支付密码" type="password" placeholder="请输入≥6的字母+数字的密码" v-model="erji"></mt-field>
+        </div>
       </div>
     </div>
-    <footer>
+    <footer v-show="data.type === '1'">
       <p class="buy" @click="addCart('buy')">立即购买</p>
       <p class="add" @click="addCart('add')">加入购物车</p>
+    </footer>
+    <footer v-show="data.type === '2'">
+      <p class="buy" @click="buyNow">立即购买</p>
     </footer>
   </div>
 </template>
@@ -36,6 +43,8 @@ export default {
       showLeft: true,
       buyCount: 1,
       id: '',
+      address: '',
+      erji: '',
       data: {}
     }
   },
@@ -71,6 +80,24 @@ export default {
         this.buyCount++
       }
     },
+    buyNow () {
+      var params = new FormData()
+      params.append('sid', localStorage.getItem('sid'))
+      params.append('address', this.address)
+      params.append('shopid', this.data.id)
+      params.append('amount', this.buyCount)
+      params.append('erji', this.erji)
+      this.axios.post(process.env.API_ROOT + '/api/block/buy_eth', params).then((res) => {
+        if (res.data.code === 1) {
+          this.$router.push('/mallOrder')
+        }
+        this.$toast({
+          message: res.data.msg,
+          position: 'bottom',
+          duration: 1000
+        })
+      })
+    },
     addCart (type) {
       this._addCart(type)
     },
@@ -79,7 +106,6 @@ export default {
       params.append('shop_id', this.id)
       this.axios.post(process.env.API_ROOT + '/api/block/get_shop_detail', params).then((res) => {
         this.data = res.data.data
-        console.log(res.data.data)
       })
     },
     _addCart (type) {
@@ -118,6 +144,8 @@ export default {
   bottom 0
   left 0
   right 0
+  .mint-field .mint-cell-title
+    width 130px
   .container
     position absolute
     top 2.4rem

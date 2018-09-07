@@ -3,6 +3,9 @@
     <Header :showTitle="showTitle">
       <p slot="title">{{lang.lable1}}</p>
     </Header>
+    <div class="red" @click="gopage">
+      <img src="../../assets/img/red.jpg" alt="">
+    </div>
     <div class="container" ref="wrapper">
       <div class="wrapper">
         <div class="box">
@@ -88,6 +91,9 @@ export default {
     globalVue = this
   },
   methods: {
+    gopage () {
+      this.$router.push('/redpacket')
+    },
     H5toNativeUrl () {
       window.location.href = 'http://scan.com'
     },
@@ -162,7 +168,7 @@ export default {
         lable3: '昨日收益',
         lable4: '消费积分',
         lable44: '注册积分',
-        lable5: '现金积分',
+        lable5: '复消积分',
         lable6: '发送',
         lable7: '扫描',
         lable8: '接收',
@@ -202,11 +208,19 @@ window.reviced = function (res) {
 #home
   position absolute
   top 0
-  left 0
-  right 0
+  width 100%
   bottom 2.6rem
   font-size .8rem
   background #fff
+  .red
+    position fixed
+    right 1.5rem
+    height 4rem
+    z-index 999
+    top 70%
+    img
+      height 3.8rem
+      border-radius .2rem
   .container
     position absolute
     top 2.4rem
@@ -214,6 +228,9 @@ window.reviced = function (res) {
     left 0
     right 0
     overflow hidden
+    background url('../../assets/img/beijing.jpg')
+    background-size 100% 100%
+    background-repeat no-repeat
     .box
       padding .8rem
       margin-top .8rem
@@ -221,35 +238,36 @@ window.reviced = function (res) {
       padding .8rem 0
       text-align center
       border-radius .4rem
-      color #00a8ff
-      box-shadow 0px 0px 10px 1px #ccc
+      color #fff
+      background url('../../assets/img/banner.gif')
+      background-size 100% 102%
+      background-repeat no-repeat
       .current
         font-size .8rem
       .curMoney
         font-size 1.6rem
-        color #666
+        color #ebebeb
         line-height 3rem
       .yesMoney
         font-size 1rem
         line-height 2rem
-        color #666
+        color #ccc
     .integration
       display flex
       height 2.4rem
-      padding .5rem 0
+      padding 1.5rem 0
       text-align center
       border-radius .4rem
-      color #00a8ff
-      background #fff
-      box-shadow 0px 0px 10px 1px #ccc
+      color #0000ff
+      box-shadow 0px 0px 1px .1px #0000ff
       .consume, .cash
         flex 1
         .title
-          line-height 1.2rem
+          line-height 1.4rem
         .money
           line-height 1.4rem
           font-size .8rem
-          color #666
+          color #333
       .line
         width 1px
         height 2.4rem
@@ -258,7 +276,7 @@ window.reviced = function (res) {
       display flex
       padding .8rem 0
       border-radius .4rem
-      box-shadow 0px 0px 10px 1px #ccc
+      box-shadow 0px 0px 2px .1px #0000ff
       .left,.center,.right
         flex 1
         text-align center
@@ -280,10 +298,10 @@ window.reviced = function (res) {
               margin .5rem auto
         .title
           line-height 2rem
-          color #00a8ff
+          color #0000ff
         .descripte
           font-size .6rem
-          color #666
+          color #333
     .notice
       display flex
       justify-content space-between
@@ -291,26 +309,26 @@ window.reviced = function (res) {
       padding .5rem .2rem
       border-top 1px solid #ebebeb
       border-bottom 1px solid #ebebeb
-      color #666
+      color #333
       .left
         img
           float left
-          height 1rem
+          height 1.4rem
           margin-right .4rem
     .tips
       padding .8rem
       border-radius .4rem
-      color #00a8ff
-      box-shadow 0px 0px 10px 1px #ccc
+      color #0000ff
+      box-shadow 0px 0px 1px .1px #0000ff
       .detail
         text-align center
         line-height 2rem
         font-size .6rem
-        color #666
+        color #333
     .bottom
       margin-top .8rem
       padding-bottom 0.5rem
-      color #666
+      color #333
       font-size .6rem
       letter-spacing 2px
       text-align center

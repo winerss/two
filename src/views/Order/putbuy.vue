@@ -8,19 +8,19 @@
       v-model="value"
       :options="options">
     </mt-radio>
-    <mt-field v-show="this.value === '1'" label="买单价格" :placeholder="tips" v-model='form.price'></mt-field>
+    <mt-field label="买单价格" :placeholder="tips" v-model='form.price'></mt-field>
     <mt-field label="买单数量" placeholder="请输入100~2000且100的倍数" v-model="form.amount"></mt-field>
-    <mt-cell title="手机归属地" is-link to="/citys">
+    <!-- <mt-cell title="手机归属地" is-link to="/citys">
       <p>{{ selectedCity.city }}（+{{ selectedCity.tel }}）</p>
     </mt-cell>
-    <mt-field label="手机号码" v-model="form.tel" readonly placeholder="请输入手机号码"></mt-field>
-    <div class="telphone">
+    <mt-field label="手机号码" v-model="form.tel" readonly placeholder="请输入手机号码"></mt-field> -->
+    <!-- <div class="telphone">
       <mt-cell title="验证码">
         <input type="text" v-model="form.code">
         <p v-show="codeSta" @click="getCode" style="font-size: 0.8rem;color:#00a8ff;">获取验证码</p>
         <mt-button v-show="!codeSta" style="font-size: 0.6rem;" size="small" type="primary">{{time + ' 秒后获取'}}</mt-button>
       </mt-cell>
-    </div>
+    </div> -->
     <mt-field label="支付密码" type="password" placeholder="请输入≥6的字母+数字的密码" v-model="form.password"></mt-field>
     <p class="total">总价：CNY {{form.amount * form.price}}</p>
     <mt-button :class="{ active: isActive }" class="confirm" @click="confirm" size="small" type="default">确认买单</mt-button>
@@ -39,16 +39,19 @@ export default {
       form: {
         price: '',
         amount: '',
-        password: '',
-        code: '',
-        tel: ''
+        password: ''
+        // code: '',
+        // tel: ''
       },
       isActive: false,
       value: '1',
+      // options: [{
+      //   label: '挂释放钱包', value: '1'
+      // }]
       options: [{
         label: '挂释放钱包', value: '1'
       }, {
-        label: '挂注册积分', value: '2'
+        label: '注册积分', value: '2'
       }]
     }
   },
@@ -56,13 +59,13 @@ export default {
     form: {
       handler (newValue, oldValue) {
         if (this.value === '2') {
-          if (oldValue.tel && oldValue.amount && oldValue.password && oldValue.code) {
+          if (oldValue.amount && oldValue.password) {
             this.isActive = true
           } else {
             this.isActive = false
           }
         } else {
-          if (oldValue.tel && oldValue.price && oldValue.code && oldValue.password && oldValue.amount) {
+          if (oldValue.price && oldValue.password && oldValue.amount) {
             this.isActive = true
           } else {
             this.isActive = false
@@ -129,8 +132,8 @@ export default {
       var params = new FormData()
       params.append('sid', localStorage.getItem('sid'))
       params.append('type', 1)
-      params.append('tel', this.form.tel)
-      params.append('code', this.form.code)
+      // params.append('tel', this.form.tel)
+      // params.append('code', this.form.code)
       params.append('erji', this.form.password)
       params.append('sign', this.value)
       params.append('price', this.form.price)
@@ -157,15 +160,20 @@ export default {
 
 <style lang="stylus">
 #putbuy
+  border-top 1px solid #f5f5f5
   .price
     display flex
+    border-bottom 1px solid #f5f5f5
     p
       height 26px
       line-height 26px
       flex 1
-      background #f5f5f5
-      color #666
+      // background #f5f5f5
+      color #00a8ff
       text-align center
+  .mint-radiolist
+    .mint-radiolist-title
+      margin 0
   .mint-cell
     border-bottom 1px solid #ddd
     background #fff
@@ -187,6 +195,7 @@ export default {
   .total
     line-height 2rem
     padding 0 .8rem
+    color #00a8ff
   .confirm
     display block
     width 90%

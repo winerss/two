@@ -22,13 +22,28 @@
           </div>
           <!-- shop -->
           <h4 style="line-height: 2rem;text-align:center;color:#00a8ff; backgroundColor: #f5f5f5;">消费区</h4>
-          <div class="item" v-for="(item, index) in shop" :key="index" @click="goPage('/mallDetail/', item.id)">
-            <div class="banner" :style="{backgroundImage:'url(' + url + item.img + ')'}"></div>
-            <h4>{{item.title}}</h4>
-            <p class="content">{{item.content || '暂无数据'}}</p>
-            <div class="bottom">
-              <p class="price">￥{{item.price}}</p>
-              <p class="cart" @click.stop="addCart(item)"><img src="../../assets/img/cart.png" alt="">购物车</p>
+          <div class="shop">
+            <div class="item" v-for="(item, index) in shop" :key="index" @click="goPage('/mallDetail/', item.id)">
+              <div class="banner" :style="{backgroundImage:'url(' + url + item.img + ')'}"></div>
+              <h4>{{item.title}}</h4>
+              <p class="content">{{item.content || '暂无数据'}}</p>
+              <div class="bottom">
+                <p class="price">￥{{item.price}}</p>
+                <p class="cart" @click.stop="addCart(item)"><img src="../../assets/img/cart.png" alt="">购物车</p>
+              </div>
+            </div>
+          </div>
+          <!-- eth -->
+          <h4 style="line-height: 2rem;text-align:center;color:#00a8ff; backgroundColor: #f5f5f5;">ETH</h4>
+          <div class="eths">
+            <div class="item" v-for="(item, index) in eths" :key="index" @click="goPage('/mallDetail/', item.id)">
+              <div class="banner" :style="{backgroundImage:'url(' + url + item.img + ')'}"></div>
+              <h4>{{item.title}}</h4>
+              <p class="content">{{item.content || '暂无数据'}}</p>
+              <div class="bottom">
+                <p class="price">￥{{item.price}}</p>
+                <!-- <p class="cart" @click.stop="addCart(item)"><img src="../../assets/img/cart.png" alt="">购物车</p> -->
+              </div>
             </div>
           </div>
         </div>
@@ -50,7 +65,8 @@ export default {
       showTitle: true,
       showRight: true,
       product: [],
-      shop: []
+      shop: [],
+      eths: []
     }
   },
   created () {
@@ -100,6 +116,12 @@ export default {
         console.log(this.product)
       })
     },
+    get_eth () {
+      this.axios.post(process.env.API_ROOT + '/api/block/get_eth').then((res) => {
+        this.eths = res.data.data
+        console.log(this.eths)
+      })
+    },
     get_shop () {
       this.axios.post(process.env.API_ROOT + '/api/block/get_shop').then((res) => {
         this.shop = res.data.data
@@ -113,6 +135,7 @@ export default {
   mounted () {
     this.get_product()
     this.get_shop()
+    this.get_eth()
     this._initScroll()
   }
 }
@@ -188,7 +211,7 @@ export default {
       .wrapper
         overflow hidden
         padding-bottom 2rem
-        .product
+        .product,.shop,.eths
           padding-bottom .8rem
           overflow hidden
 </style>
