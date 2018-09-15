@@ -8,7 +8,7 @@
       <div class="items" ref="wrapper">
         <div class="wrapper">
           <!-- product -->
-          <h4 style="line-height: 2rem;text-align:center;color:#00a8ff; backgroundColor: #f5f5f5;">会员区</h4>
+          <h4 class="header-title" style="line-height: 2rem;text-align:center;color:#00a8ff;">会员区</h4>
           <div class="product">
             <div class="item" v-for="(item, index) in product" :key="index" @click="goPage('/product/', item.id)">
               <div class="banner" :style="{backgroundImage:'url(' + url + item.img + ')'}"></div>
@@ -21,7 +21,7 @@
             </div>
           </div>
           <!-- shop -->
-          <h4 style="line-height: 2rem;text-align:center;color:#00a8ff; backgroundColor: #f5f5f5;">消费区</h4>
+          <h4 class="header-title" style="line-height: 2rem;text-align:center;color:#00a8ff;">消费区</h4>
           <div class="shop">
             <div class="item" v-for="(item, index) in shop" :key="index" @click="goPage('/mallDetail/', item.id)">
               <div class="banner" :style="{backgroundImage:'url(' + url + item.img + ')'}"></div>
@@ -34,7 +34,7 @@
             </div>
           </div>
           <!-- eth -->
-          <h4 style="line-height: 2rem;text-align:center;color:#00a8ff; backgroundColor: #f5f5f5;">ETH</h4>
+          <h4 class="header-title" style="line-height: 2rem;text-align:center;color:#00a8ff;">ETH</h4>
           <div class="eths">
             <div class="item" v-for="(item, index) in eths" :key="index" @click="goPage('/mallDetail/', item.id)">
               <div class="banner" :style="{backgroundImage:'url(' + url + item.img + ')'}"></div>
@@ -148,12 +148,16 @@ export default {
   bottom 2.6rem
   left 0
   right 0
+  background url('../../assets/img/beijing.jpg')
+  background-size cover
+  .header-title
+    background rgba(255,255,255,0.4)
   .item
     float left
     width 44%
     margin-left 4%
     margin-top 1rem
-    background #fff
+    // background #fff
     border-radius 6px
     overflow hidden
     box-shadow 0px 0px 5px 2px #ccc
@@ -201,7 +205,7 @@ export default {
     bottom 0
     left 0
     right 0
-    background #fff
+    // background #fff
     .items
       position absolute
       top 0

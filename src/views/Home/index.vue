@@ -238,28 +238,28 @@ window.reviced = function (res) {
       padding .8rem 0
       text-align center
       border-radius .4rem
-      color #fff
-      background url('../../assets/img/banner.gif')
-      background-size 100% 102%
-      background-repeat no-repeat
+      color #00a8ff
+      // background url('../../assets/img/banner.gif')
+      box-shadow 0px 0px 1px .1px #00a8ff
+      background-size cover
       .current
         font-size .8rem
       .curMoney
         font-size 1.6rem
-        color #ebebeb
+        color #333
         line-height 3rem
       .yesMoney
         font-size 1rem
         line-height 2rem
-        color #ccc
+        color #333
     .integration
       display flex
       height 2.4rem
       padding 1.5rem 0
       text-align center
       border-radius .4rem
-      color #0000ff
-      box-shadow 0px 0px 1px .1px #0000ff
+      color #00a8ff
+      box-shadow 0px 0px 1px .1px #00a8ff
       .consume, .cash
         flex 1
         .title
@@ -276,7 +276,7 @@ window.reviced = function (res) {
       display flex
       padding .8rem 0
       border-radius .4rem
-      box-shadow 0px 0px 2px .1px #0000ff
+      box-shadow 0px 0px 2px .1px #00a8ff
       .left,.center,.right
         flex 1
         text-align center
@@ -298,7 +298,7 @@ window.reviced = function (res) {
               margin .5rem auto
         .title
           line-height 2rem
-          color #0000ff
+          color #00a8ff
         .descripte
           font-size .6rem
           color #333
@@ -318,8 +318,8 @@ window.reviced = function (res) {
     .tips
       padding .8rem
       border-radius .4rem
-      color #0000ff
-      box-shadow 0px 0px 1px .1px #0000ff
+      color #00a8ff
+      box-shadow 0px 0px 1px .1px #00a8ff
       .detail
         text-align center
         line-height 2rem

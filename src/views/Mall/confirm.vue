@@ -91,7 +91,7 @@ export default {
         value: '5'
       },
       {
-        label: '40消费积分+60复消积分',
+        label: '100%消费积分',
         value: '6'
       }],
       form: {

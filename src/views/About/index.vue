@@ -28,6 +28,11 @@
               <p class="title">{{lang.label4}}</p>
               <p class="money">{{data.all_point}}</p>
             </div>
+            <div class="line"></div>
+            <div class="cash" @click="goPages('/gupoint/', data.gu_point)">
+              <p class="title">股权钱包</p>
+              <p class="money">{{data.gu_point}}</p>
+            </div>
           </div>
           <div class="packet" style="margin-top: 1rem;">
             <div class="cash" @click="goPages('/eth/', data.eth_point)">
@@ -193,22 +198,24 @@ export default {
   color #333
   .container
     position absolute
+    background url('../../assets/img/beijing.jpg')
+    background-size cover
     top 2.4rem
     bottom 0
-    margin-bottom 2rem
     left 0
     right 0
     .box
       margin-top .8rem
       padding .8rem
-      background #fff
+      // background #fff
     .information
       padding .5rem .8rem
       background #fff
       border-radius .4rem
       box-shadow 0px 0px 10px 1px #ccc
-      background url('../../assets/img/banner.gif')
-      background-size 100% 102%
+      // background url('../../assets/img/banner.gif')
+      // background-size 100% 102%
+      background none
       background-repeat no-repeat
       .header
         display flex
@@ -219,7 +226,7 @@ export default {
           text-overflow ellipsis
           white-space nowrap
           font-size 1.4rem
-          color #ccc
+          color #00a8ff
         .avatar
           flex-shrink 0
           width 4rem
@@ -235,21 +242,22 @@ export default {
         overflow hidden
         text-overflow ellipsis
         white-space nowrap
-        color #ccc
+        color #333
       .copy
-        color #ccc
+        color #333
     .packet
       display flex
       height 2.4rem
       padding .5rem 0
       text-align center
       border-radius .4rem
-      background #fff
+      // background #fff
       box-shadow 0px 0px 10px 1px #ccc
       .consume, .cash
         flex 1
         .title
           line-height 1.2rem
+          color #00a8ff
         .money
           line-height 1.4rem
           font-size 1rem
@@ -263,6 +271,7 @@ export default {
       .mint-cell
         color #333
         border-bottom 1px solid #ddd
+        background none
         .mint-cell-text
           font-size .8rem
       .mint-cell:last-child

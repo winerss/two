@@ -33,6 +33,8 @@ import orderRecord from '@/views/About/orderRecord'
 import myorder from '@/views/About/myorder'
 import reward from '@/views/About/reward'
 import release from '@/views/About/release'
+import gupoint from '@/views/About/gupoint'
+
 import freeze from '@/views/About/freeze'
 import user from '@/views/About/user'
 import nickname from '@/views/About/nickname'
@@ -269,6 +271,11 @@ export default new Router({
       path: '/release/:id',
       name: 'release',
       component: release
+    },
+    {
+      path: '/gupoint/:id',
+      name: 'gupoint',
+      component: gupoint
     },
     {
       path: '/hfcc/:id',
