@@ -5,6 +5,7 @@ import index from '@/views/Index'
 // 首页
 import home from '@/views/Home'
 import balance from '@/views/Home/balance'
+import newScale from '@/views/Home/newScale'
 import transfer from '@/views/Home/transfer'
 import receive from '@/views/Home/receive'
 import noticeList from '@/views/Home/noticeList'
@@ -171,6 +172,10 @@ export default new Router({
       meta: {
         title: 'HFCC余额'
       }
+    }, {
+      path: '/newScale/:type',
+      name: 'newScale',
+      component: newScale
     }, {
       path: '/transfer',
       name: 'transfer',

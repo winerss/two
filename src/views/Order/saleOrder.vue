@@ -135,7 +135,7 @@ export default {
   width 100%
   bottom 0
   overflow hidden
-  background #f5f5f5
+  // background #f5f5f5
   .title
     display flex
     position absolute
@@ -143,7 +143,7 @@ export default {
     top 0
     width 100%
     height 2rem
-    background #fff
+    // background #fff
     line-height 2rem
     text-align center
     color #999
@@ -156,7 +156,7 @@ export default {
     top 2rem
     width 100%
     height 2rem
-    background #fff
+    // background #fff
     line-height 2rem
     text-align center
     color #999
@@ -174,7 +174,7 @@ export default {
         margin-bottom .4rem
         border-top 1px solid #ddd
         border-bottom 1px solid #ddd
-        background #fff
+        // background #fff
         .text
           padding 0 .6rem
           display flex

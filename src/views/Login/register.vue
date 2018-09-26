@@ -16,6 +16,7 @@
     </mt-cell>
     <p class="price">用户名和推荐人输入后将不能更改，请仔细和对</p>
     <mt-field label="用户名" placeholder="请输入用户名"  v-model="form.name"></mt-field>
+    <mt-field label="真实姓名" placeholder="请输入真实姓名"  v-model="form.realname"></mt-field>
     <mt-field label="推荐人" placeholder="请输入推荐人用户名" v-model="form.oName"></mt-field>
     <p class="price">设置登录密码和支付密码</p>
     <mt-field label="登录密码" type="password" placeholder="请输入密码" v-model="form.password"></mt-field>
@@ -38,7 +39,8 @@ export default {
         name: '',
         oName: '',
         password: '',
-        ppassword: ''
+        ppassword: '',
+        realname: ''
       },
       showLeft: true,
       showTitle: true,
@@ -48,7 +50,7 @@ export default {
   watch: {
     form: {
       handler (newValue, oldValue) {
-        if (oldValue.tel && oldValue.code && oldValue.name && oldValue.oName && oldValue.password && oldValue.ppassword) {
+        if (oldValue.realname && oldValue.tel && oldValue.code && oldValue.name && oldValue.oName && oldValue.password && oldValue.ppassword) {
           this.isActive = true
         } else {
           this.isActive = false
@@ -124,6 +126,14 @@ export default {
         })
         return false
       }
+      if (this.form.realname === '') {
+        this.$toast({
+          message: '请输入真实姓名',
+          position: 'bottom',
+          duration: 1000
+        })
+        return false
+      }
       if (this.form.ppassword.length < 6 || this.form.ppassword.length > 15) {
         this.$toast({
           message: '支付密码长度不正确',
@@ -145,6 +155,7 @@ export default {
       params.append('username', this.form.name)
       params.append('password', this.form.password)
       params.append('erji', this.form.ppassword)
+      params.append('realname', this.form.realname)
       params.append('leader_user', this.form.oName)
       params.append('code', this.form.code)
       params.append('tel', this.form.tel)

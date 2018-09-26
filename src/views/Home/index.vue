@@ -8,15 +8,37 @@
     </div>
     <div class="container" ref="wrapper">
       <div class="wrapper">
-        <div class="box">
+        <!-- <div class="box">
           <div class="income">
             <p class="current">{{lang.lable2}}</p>
             <p class="curMoney" @click="goDetail('/balance', 'balance', today)">{{ today }}</p>
+
             <p class="yesterday">{{lang.lable3}}</p>
             <p class="yesMoney">{{yesterday}}</p>
+            
+            <p class="new">{{lang.lable33}}</p>
+            <p class="yesMoney" @click="goDetail('/newScale', 'newScale', newScale)">{{newScale}}</p>
           </div>
-        </div>
+        </div> -->
         <div class="box">
+          <div class="integration">
+            <div class="consume" @click="goDetail('/balance', 'balance', today)">
+              <p class="title">{{lang.lable2}}</p>
+              <p class="money">{{ today }}</p>
+            </div>
+            <div class="line"></div>
+            <div class="consume" @click="goDetail('/newScale', 'newScale', newScale)">
+              <p class="title">{{lang.lable33}}</p>
+              <p class="money">{{newScale}}</p>
+            </div>
+            <div class="line"></div>
+            <div class="cash" >
+              <p class="title">{{lang.lable3}}</p>
+              <p class="money">{{yesterday}}</p>
+            </div>
+          </div>
+        <!-- </div>
+        <div class="box"> -->
           <div class="integration">
             <div class="consume" @click="goDetail('/balance', 'enroll_point', data.enroll_point)">
               <p class="title">{{lang.lable44}}</p>
@@ -84,7 +106,8 @@ export default {
       data: {},
       today: 0,
       yesterday: 0,
-      lang: {}
+      lang: {},
+      newScale: 0
     }
   },
   created () {
@@ -116,7 +139,6 @@ export default {
       this.axios.post(process.env.API_ROOT + '/api/user/get_user_info', params).then((res) => {
         let data = res.data
         this.data = data.data
-        console.log(this.data)
       })
     },
     goDetail (path, type, money) {
@@ -133,6 +155,13 @@ export default {
         this.today = res.data.data.today
         this.yesterday = res.data.data.yesterday
       })
+    },
+    new_scale () {
+      var params = new FormData()
+      params.append('sid', localStorage.getItem('sid'))
+      this.axios.post(process.env.API_ROOT + '/api/user/new_scale', params).then((res) => {
+        this.newScale = res.data.data.num
+      })
     }
   },
   mounted () {
@@ -142,11 +171,13 @@ export default {
     this._initScroll()
     this.get_user_info()
     this.get_today()
+    this.new_scale()
     let lang = {
       en: {
         lable1: 'HFCC',
         lable2: 'Current total income',
         lable3: 'Yesterday is earning',
+        lable33: 'New performance today',
         lable4: 'Consumption points',
         lable44: 'Register points',
         lable5: 'Cash integral',
@@ -166,6 +197,7 @@ export default {
         lable1: 'HFCC',
         lable2: '当前收益',
         lable3: '昨日收益',
+        lable33: '今日新增业绩',
         lable4: '消费积分',
         lable44: '注册积分',
         lable5: '复消积分',

@@ -1,12 +1,12 @@
 <template>
   <div id="nickname">
     <Header :showLeft="showLeft" :showTitle="showTitle">
-      <p slot="title">设置昵称</p>
+      <p slot="title">设置姓名</p>
     </Header>
     <div class="container">
-      <mt-field label="昵称" placeholder="请设置您的昵称" v-model='nickname'></mt-field>
-      <p class="tips">设置后，其他人将看到您的昵称。</p>
-      <mt-button :class="{ active: isActive }" size="small">保存</mt-button>
+      <mt-field label="昵称" placeholder="请设置您的真实姓名" v-model='realname'></mt-field>
+      <!-- <p class="tips">设置后，其他人将看到您的昵称。</p> -->
+      <mt-button :class="{ active: isActive }" size="small" @click="setName">保存</mt-button>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
     return {
       showTitle: true,
       showLeft: true,
-      nickname: '',
+      realname: '',
       isActive: false
     }
   },
@@ -34,6 +34,24 @@ export default {
   },
   components: {
     Header
+  },
+  methods: {
+    setName () {
+      var params = new FormData()
+      params.append('sid', localStorage.getItem('sid'))
+      params.append('realname', this.realname)
+      this.axios.post(process.env.API_ROOT + '/api/user/edit_realname', params).then((res) => {
+        let data = res.data
+        this.$toast({
+          message: data.msg,
+          position: 'bottom',
+          duration: 1000
+        })
+        if (res.data.code === 1) {
+          this.$router.push('/about')
+        }
+      })
+    }
   }
 }
 </script>
@@ -46,7 +64,7 @@ export default {
   right 0
   bottom 2.6rem
   font-size .8rem
-  background #fff
+  background #f5f5f5
   color #000
   .container
     position absolute
@@ -54,7 +72,6 @@ export default {
     bottom 0
     left 0
     right 0
-    padding 0 .8rem
     overflow-y scroll
     -webkit-overflow-scrolling touch
     &::-webkit-scrollbar
@@ -84,6 +101,7 @@ export default {
       display block
       width 90%;
       margin 1rem auto
+      background #fff
     .active
       background #00a8ff
       color #fff

@@ -83,7 +83,8 @@ export default {
   bottom 0
   font-size .8rem
   overflow hidden
-  background #f5f5f5
+  background url('../../assets/img/beijing.jpg')
+  background-size cover
   color #999
   .container
     position absolute
@@ -91,4 +92,6 @@ export default {
     bottom 0
     left 0
     right 0
+    .mint-cell
+      background none
 </style>

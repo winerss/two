@@ -4,13 +4,12 @@
       <p slot="title">个人资料</p>
     </Header>
     <div class="container">
-      <mt-cell title="头像" is-link>
-        <img style="height: 30px;" src="../../assets/img/avatar.png" alt="">
-      </mt-cell>
       <mt-cell title="用户名">
-        <p>winerss</p>
+        <p>{{data.nickname}}</p>
       </mt-cell>
-      <mt-cell title="昵称" is-link></mt-cell>
+      <mt-cell title="真实姓名" is-link to="/nickName">
+        <p>{{data.realname}}</p>
+      </mt-cell>
     </div>
   </div>
 </template>
@@ -22,11 +21,26 @@ export default {
   data () {
     return {
       showTitle: true,
-      showLeft: true
+      showLeft: true,
+      data: {}
     }
   },
   components: {
     Header
+  },
+  methods: {
+    get_user_info () {
+      var params = new FormData()
+      params.append('sid', localStorage.getItem('sid'))
+      this.axios.post(process.env.API_ROOT + '/api/user/get_user_info', params).then((res) => {
+        let data = res.data
+        this.data = data.data
+        console.log(data)
+      })
+    }
+  },
+  mounted () {
+    this.get_user_info()
   }
 }
 </script>

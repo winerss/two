@@ -60,6 +60,8 @@ export default {
   right 0
   bottom 2.6rem
   font-size .8rem
+  background url('../../assets/img/beijing.jpg')
+  background-size cover
   .header
     position fixed
     display flex
