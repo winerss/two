@@ -45,6 +45,10 @@
                   <mt-button size="small" v-show="item.contact_type === 1" v-if="item.status === '1' || item.status === '3'" @click.native="contact(item.id)" style="color: #00a8ff">联系卖家</mt-button>
                   <mt-button size="small" v-show="item.contact_type === 2" v-if="item.status === '1' || item.status === '3'" @click.native="contact(item.id)" style="color: #00a8ff">联系买家</mt-button>
                   <mt-button size="small" v-if="item.can_cancel === 1" @click.native="cancel(item.id)" style="color: #00a8ff">取消订单</mt-button>
+                  <mt-button class="upload" size="small" v-if="item.can_upload === 1" style="color: #00a8ff">
+                    <input class="selectImg" @change="upload($event, item.id)" type="file" capture="camera" name="files" accept="image/*"/>
+                    上传凭证
+                  </mt-button>
                   <mt-button size="small" v-if="item.can_shou === 1 && item.status === '3'" @click="confirm(item.id)" style="color:#00a8ff;">确认收款</mt-button>
                 </div>
               </div>
@@ -84,6 +88,25 @@ export default {
         }
       })
     },
+    upload (e, id) {
+      let file = e.target.files[0]
+      let param = new FormData()
+      param.append('file', file, file.name)
+      param.append('sid', localStorage.getItem('sid'))
+      param.append('id', id)
+      console.log(param.get('file'))
+      let config = {
+        headers: {'Content-Type': 'multipart/form-data'}
+      }
+      // 添加请求头
+      this.axios.post(process.env.API_ROOT + '/api/transfer/upload_order', param, config).then(response => {
+        this.$toast({
+          message: response.data.msg,
+          position: 'bottom',
+          duration: 1000
+        })
+      })
+    },
     getTel (id) {
       var params = new FormData()
       params.append('sid', localStorage.getItem('sid'))
@@ -107,6 +130,7 @@ export default {
       params.append('sid', localStorage.getItem('sid'))
       params.append('id', id)
       this.axios.post(process.env.API_ROOT + '/api/transfer/ok_order', params).then((response) => {
+        console.log(response)
         this.$toast({
           message: response.data.msg,
           position: 'bottom',
@@ -236,4 +260,15 @@ export default {
               padding 0 .4rem
               font-size .8rem
               height 1.4rem
+            .upload
+              position relative
+              .selectImg
+                position: absolute;
+                z-index 999
+                width: 100%;
+                height: 100%;
+                background #f00
+                background: rgba(0, 0, 0, 0);
+                opacity: 0;
+                filter: opacity(0)
 </style>
