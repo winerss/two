@@ -12,10 +12,8 @@
           <div class="income">
             <p class="current">{{lang.lable2}}</p>
             <p class="curMoney" @click="goDetail('/balance', 'balance', today)">{{ today }}</p>
-
             <p class="yesterday">{{lang.lable3}}</p>
             <p class="yesMoney">{{yesterday}}</p>
-            
             <p class="new">{{lang.lable33}}</p>
             <p class="yesMoney" @click="goDetail('/newScale', 'newScale', newScale)">{{newScale}}</p>
           </div>
